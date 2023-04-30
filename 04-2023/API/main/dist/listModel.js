@@ -5,21 +5,22 @@ var inputType = /** @class */ (function () {
     }
     return inputType;
 }());
-var inputTypes = [];
-var newInputType = new inputType("H1");
-inputTypes.push(newInputType);
+var inputTypeList = [];
+var newInputType = new inputType("t1");
+inputTypeList.push(newInputType);
 newInputType = new inputType("H2");
-inputTypes.push(newInputType);
+inputTypeList.push(newInputType);
 newInputType = new inputType("H3");
-inputTypes.push(newInputType);
+inputTypeList.push(newInputType);
 newInputType = new inputType("H4");
-inputTypes.push(newInputType);
+inputTypeList.push(newInputType);
 newInputType = new inputType("H5");
-inputTypes.push(newInputType);
+inputTypeList.push(newInputType);
 newInputType = new inputType("H6");
-inputTypes.push(newInputType);
+inputTypeList.push(newInputType);
 newInputType = new inputType("p");
-inputTypes.push(newInputType);
+inputTypeList.push(newInputType);
+console.log(inputTypeList);
 //end of defines all input types level for html tags//
 //defines the input field in the document//
 var docField = /** @class */ (function () {

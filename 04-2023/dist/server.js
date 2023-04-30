@@ -20,12 +20,12 @@ else {
     console.log("No URI to DB");
 }
 app.use(express_1["default"].json());
-app.use(express_1["default"].static("./client"));
 // import usersRouter from './API/users/usersRoute';
 // app.use('/api/users', usersRouter);
 // import courseRouter from './API/courses/courseRoutes';
 // app.use('/api/courses', courseRouter);
 //static file
+app.use(express_1["default"].static("./public"));
 app.listen(3000, function () {
     console.log("server listen on port 3000");
 });

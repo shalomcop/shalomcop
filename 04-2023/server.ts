@@ -21,7 +21,6 @@ if (uri) {
 }
 
 app.use(express.json());
-app.use(express.static("./client"));
 
 // import usersRouter from './API/users/usersRoute';
 // app.use('/api/users', usersRouter);
@@ -31,7 +30,7 @@ app.use(express.static("./client"));
 
 
 //static file
-
+app.use(express.static("./public"));
 
 app.listen(3000, () => {
   console.log("server listen on port 3000");

@@ -1,120 +1,61 @@
-function handleGetUsers() {
-    console.log("test");
+function renderInputTypeList(inputTypeList) {
     try {
-        fetch("/api/users/get-users")
-            .then(function (res) { return res.json(); })
-            .then(function (_a) {
-            var users = _a.users;
-            try {
-                if (!users)
-                    throw new Error("didnt find users");
-                console.log(users);
-                renderUsers(users);
-            }
-            catch (error) {
-                console.error(error);
-            }
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-function renderUsers(users) {
-    try {
-        if (!users)
-            throw new Error("No users");
-        var html = users
-            .map(function (user) {
-            return renderUser(user);
+        if (!inputTypeList)
+            throw new Error("No inputTypeList");
+        var html = inputTypeList
+            .map(function (inputType) {
+            return renderInputType(inputType);
         })
-            .join(" ");
-        var usersElement = document.querySelector("#users");
-        if (!usersElement)
-            throw new Error("coundnt find users element on DOM");
-        usersElement.innerHTML = html;
+            .join("");
+        var inputTypeListElement = document.querySelector("#inputTypeList");
+        if (!inputTypeListElement)
+            throw new Error("coundnt find inputTypeList element on DOM");
+        inputTypeListElement.innerHTML = '<select>' + html + '</select>';
     }
     catch (error) {
         console.error(error);
     }
 }
-function renderUser(user) {
+function renderInputType(inputType) {
     try {
-        console.log(user);
-        return "<div class=\"userCard\">\n              <img src=\"" + user.src + "\" alt=\"user name is " + user.name + "\">\n              <p contenteditable oninput=\"handleUserNameUpdate(event, '" + user.uid + "')\">" + user.name + "</p>\n              <button onclick='handleDeleteUser(\"" + user._id + "\")'>DELETE</button>\n              </div>";
+        console.log(inputType);
+        return "<option value=\"" + inputType.typeName + "\">" + inputType.typeName + "</option>";
     }
     catch (error) {
         console.error(error);
         return null;
     }
 }
-function handleUserNameUpdate(ev, uid) {
-    try {
-        console.log(uid);
-        var name = ev.target.textContent;
-        fetch("/api/users/update-user-name", {
-            method: "PATCH",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ name: name, uid: uid })
-        });
+var inputType = /** @class */ (function () {
+    function inputType(typeName) {
+        this.typeName = typeName;
     }
-    catch (error) {
-        console.error(error);
+    return inputType;
+}());
+var inputTypeList = [];
+var newInputType = new inputType("H1");
+inputTypeList.push(newInputType);
+newInputType = new inputType("H2");
+inputTypeList.push(newInputType);
+newInputType = new inputType("H3");
+inputTypeList.push(newInputType);
+newInputType = new inputType("H4");
+inputTypeList.push(newInputType);
+newInputType = new inputType("H5");
+inputTypeList.push(newInputType);
+newInputType = new inputType("H6");
+inputTypeList.push(newInputType);
+newInputType = new inputType("p");
+inputTypeList.push(newInputType);
+console.log(inputTypeList);
+//end of defines all input types level for html tags//
+//defines the input field in the document//
+var docField = /** @class */ (function () {
+    function docField(fieldType, fieldData) {
+        this.fieldType = fieldType;
+        this.fieldData = fieldData;
     }
-}
-function handleAddUser(ev) {
-    try {
-        ev.preventDefault();
-        var name = ev.target.elements.name.value;
-        var src = ev.target.elements.src.value;
-        if (!name)
-            throw new Error("No name");
-        if (!src)
-            throw new Error("No src");
-        var newUser = { name: name, src: src };
-        //send to server:
-        fetch("/api/users/add-user", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newUser)
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-            console.log(data);
-        })["catch"](function (error) {
-            console.error(error);
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-function handleDeleteUser(_id) {
-    try {
-        console.log(_id);
-        fetch("/api/users/delete-user", {
-            method: "DELETE",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ _id: _id })
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (_a) {
-            var users = _a.users;
-            renderUsers(users);
-        })["catch"](function (error) {
-            console.error(error);
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
+    return docField;
+}());
+renderInputTypeList(inputTypeList);
+//end of defines the input field in the document//
